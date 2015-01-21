@@ -1,12 +1,11 @@
 
 
 
-
-import javax.swing.JPanel;
-import javax.swing.JFrame;
-import java.awt.Color;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 import java.util.HashMap;
-
+import java.util.Random;
 
 
 
@@ -17,7 +16,8 @@ class Ani extends JPanel {
     //Hastigheten på animasjonene (millisekunder)
     static double frames = 60;
     
-    
+    public static Dimension d;
+    public static Random random = new Random();
     
     public static int dW = 1000;
     public static int dH = 500;
@@ -39,8 +39,22 @@ class Ani extends JPanel {
         //Setter posisjonen til de ulike objektene
         posX.put("fig1",200);
         posY.put("fig1",200);
+	
         
         
+	fig1.addComponentListener(new ComponentAdapter(){
+		
+		@Override
+		public void componentResized(ComponentEvent e){
+		    Component c = (Component)e.getSource();
+		    d = c.getSize();
+		    System.out.println("The sizes: " + d.getWidth() + " and " + d.getHeight());
+		}
+		@Override
+		public void componentShown(ComponentEvent e){
+		    System.out.println("The component is shown!");
+		}
+	    });
         
         //JPanel "fig1" egenskaper
         fig1.setSize(100,100);
@@ -66,15 +80,84 @@ class Ani extends JPanel {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(vindu);
         
-        
+
+
         //Flytter elementet til ønsket posisjon
-        animate(700,400,fig1,"fig1",true);
+	//  animate(700,400,fig1,"fig1",true);
+	bounce(fig1, frame, d, -10,-10);
+	System.out.println("The bounce method is finished now!");
         
         
         
    
     }
     
+
+    private static boolean collision(double elementX, double elementY,double elementWidht, double elementHeight, int frameWidth, int frameHeight){
+	double elementXRight = elementX + elementWidht;
+	double elementYBottom = elementY + elementHeight;
+	System.out.println("The elementY is: " + elementY);
+
+	// Now check if there are any boundary collisions
+	// Check the vertical
+	if(elementX < 0 || elementXRight >= frameWidth){
+	    return true;
+	} else if(elementY < 0 || elementYBottom >= frameHeight){
+	    return true;
+	}
+	System.out.println("Collision method triggered true");
+	return false;
+    }
+    
+    public static void bounce(JPanel element, JFrame frame, Dimension elementSize, int dx, int dy) throws Exception {
+	
+	// Get the boundaries of the JFrame box.
+	int frameSizeX = frame.getContentPane().getWidth();
+	int frameSizeY = frame.getContentPane().getHeight();
+	// System.out.println("The width is: " + frameSizeX);
+	// System.out.println("And the height: " + frameSizeY);
+	element.getLocation();
+	// Now get the coordinates of the jFrame
+	double elementSizeX = elementSize.getWidth();
+	double elementSizeY = elementSize.getHeight();
+
+	// The position
+	Point p = element.getLocation();
+
+
+	
+	System.out.println(collision(p.getX(), p.getY(), elementSizeX, elementSizeY, frameSizeX, frameSizeY));
+	
+	// if there is not a collision, keep the rectangle moving
+	if(!collision(p.getX(), p.getY(), elementSizeX, elementSizeY, frameSizeX, frameSizeY)){
+	    // Use the point class to store the position of the element
+	    p.translate(dx, dy);
+	    System.out.println("Setting the new location!");
+	    element.setLocation((int)p.getX(), (int)p.getY());
+	    System.out.println("The new positions x: " + p.getX() + "and y: " + p.getY() );
+
+	    // Now sleep for 30 milliseconds
+	    Thread.sleep(30);
+	    
+	} else {
+	    System.out.println("A collision was detected");
+	    // Therefore, now set a new direction, in which to move
+	    // dx = random.nextInt(20)-10;
+	    // dy = random.nextInt(20)-10;
+	    // p.translate(dx, dy);
+	    dx = -dx;
+	    dy = -dy;
+	    p.translate(dx, dy);
+	    element.setLocation((int)p.getX(), (int)p.getY());
+	}
+	
+	System.out.println("Iterating...");
+	bounce(element, frame, elementSize, dx, dy);
+	
+	
+
+    }
+
     
     
     
@@ -166,6 +249,8 @@ class Ani extends JPanel {
         if (!((avstandX == 0) && (avstandY == 0))) { animate(x,y,element,navn,false); }
         
     }//Avslutter metoden "animate"
+    
+
     
     
     
