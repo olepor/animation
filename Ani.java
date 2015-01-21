@@ -103,6 +103,7 @@ class Ani extends JPanel {
 	p1.setLocation(100, 200);
 	p1.setBackground(Color.WHITE);
 
+
 	// Player two panel
 	p2.setSize(20, 70);
 	p2.setLocation(900, 200);
