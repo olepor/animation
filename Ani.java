@@ -1,11 +1,20 @@
 
 
 
+<<<<<<< HEAD
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.HashMap;
 import java.util.Random;
+=======
+
+import javax.swing.JPanel;
+import javax.swing.JFrame;
+import java.awt.Color;
+import java.util.HashMap;
+
+>>>>>>> f8d49fa48bbf2083f1c5779b062ad9e356a4e397
 
 
 
@@ -16,8 +25,12 @@ class Ani extends JPanel {
     //Hastigheten på animasjonene (millisekunder)
     static double frames = 60;
     
+<<<<<<< HEAD
     public static Dimension d;
     public static Random random = new Random();
+=======
+    
+>>>>>>> f8d49fa48bbf2083f1c5779b062ad9e356a4e397
     
     public static int dW = 1000;
     public static int dH = 500;
@@ -26,9 +39,12 @@ class Ani extends JPanel {
     public static JFrame frame = new JFrame();
     public static JPanel vindu = new JPanel();
     public static JPanel fig1 = new JPanel();
+<<<<<<< HEAD
     public static JPanel fig2 = new JPanel();
     public static JPanel p1 = new JPanel();
     public static JPanel p2 = new JPanel();
+=======
+>>>>>>> f8d49fa48bbf2083f1c5779b062ad9e356a4e397
     
     
     //Posisjonen til de ulike objektene
@@ -42,6 +58,7 @@ class Ani extends JPanel {
         //Setter posisjonen til de ulike objektene
         posX.put("fig1",200);
         posY.put("fig1",200);
+<<<<<<< HEAD
 	
         posX.put("fig2",500);
         posY.put("fig2",300);
@@ -87,12 +104,17 @@ class Ani extends JPanel {
 		    System.out.println("The component is shown!");
 		}
 	    });
+=======
+        
+        
+>>>>>>> f8d49fa48bbf2083f1c5779b062ad9e356a4e397
         
         //JPanel "fig1" egenskaper
         fig1.setSize(100,100);
         fig1.setLocation(posX.get("fig1"),posY.get("fig1"));
         fig1.setBackground(Color.WHITE);
         
+<<<<<<< HEAD
 	//JPanel "fig2" egenskaper
         fig2.setSize(50,50);
         fig2.setLocation(posX.get("fig2"),posY.get("fig2"));
@@ -108,18 +130,25 @@ class Ani extends JPanel {
 	p2.setSize(20, 70);
 	p2.setLocation(900, 200);
 	p2.setBackground(Color.WHITE);
+=======
+        
+>>>>>>> f8d49fa48bbf2083f1c5779b062ad9e356a4e397
         
         
         //JPanel "vindu" egenskaper
         vindu.setSize(dW, dH);
         vindu.setLayout(null);
         vindu.setBackground(Color.BLACK);
+<<<<<<< HEAD
 	vindu.add(fig1);
 	System.out.println("Adding player one");
 	//vindu.add(fig2);
 	vindu.add(p1);
 	vindu.add(p2);
 	
+=======
+        vindu.add(fig1);
+>>>>>>> f8d49fa48bbf2083f1c5779b062ad9e356a4e397
         
         
         
@@ -130,6 +159,7 @@ class Ani extends JPanel {
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(vindu);
+<<<<<<< HEAD
 
         
 
@@ -138,12 +168,19 @@ class Ani extends JPanel {
 	//  animate(700,400,fig1,"fig1",true);
 	bounce(fig1, frame, d, -10,-5);
 	System.out.println("The bounce method is finished now!");
+=======
+        
+        
+        //Flytter elementet til ønsket posisjon
+        animate(700,400,fig1,"fig1",true);
+>>>>>>> f8d49fa48bbf2083f1c5779b062ad9e356a4e397
         
         
         
    
     }
     
+<<<<<<< HEAD
     // Simple collision detection where returns are:
     // 1 for vertical collisions
     // 2 for horisontal ones
@@ -225,6 +262,8 @@ class Ani extends JPanel {
 
     }
 
+=======
+>>>>>>> f8d49fa48bbf2083f1c5779b062ad9e356a4e397
     
     
     
@@ -317,8 +356,11 @@ class Ani extends JPanel {
         
     }//Avslutter metoden "animate"
     
+<<<<<<< HEAD
 
     
+=======
+>>>>>>> f8d49fa48bbf2083f1c5779b062ad9e356a4e397
     
     
     
