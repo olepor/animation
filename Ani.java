@@ -84,7 +84,7 @@ class Ani extends JPanel {
 
         //Flytter elementet til ønsket posisjon
 	//  animate(700,400,fig1,"fig1",true);
-	bounce(fig1, frame, d, -10,-10);
+	bounce(fig1, frame, d, -10,-5);
 	System.out.println("The bounce method is finished now!");
         
         
@@ -92,21 +92,25 @@ class Ani extends JPanel {
    
     }
     
-
-    private static boolean collision(double elementX, double elementY,double elementWidht, double elementHeight, int frameWidth, int frameHeight){
+    // Simple collision detection where returns are:
+    // 1 for vertical collisions
+    // 2 for horisontal ones
+    // and -1 if no collisions are detected
+    private static int collision(double elementX, double elementY,double elementWidht, double elementHeight, int frameWidth, int frameHeight){
 	double elementXRight = elementX + elementWidht;
 	double elementYBottom = elementY + elementHeight;
 	System.out.println("The elementY is: " + elementY);
+	System.out.println("The elementX is: " + elementX);
 
 	// Now check if there are any boundary collisions
 	// Check the vertical
-	if(elementX < 0 || elementXRight >= frameWidth){
-	    return true;
-	} else if(elementY < 0 || elementYBottom >= frameHeight){
-	    return true;
+	if(elementX <= 0 || elementXRight >= frameWidth){
+	    return 1;
+	} else if(elementY <= 0 || elementYBottom >= frameHeight){
+	    return 2;
 	}
-	System.out.println("Collision method triggered true");
-	return false;
+
+	return -1;
     }
     
     public static void bounce(JPanel element, JFrame frame, Dimension elementSize, int dx, int dy) throws Exception {
@@ -127,30 +131,41 @@ class Ani extends JPanel {
 
 	
 	System.out.println(collision(p.getX(), p.getY(), elementSizeX, elementSizeY, frameSizeX, frameSizeY));
+
+	int collisionId = collision(p.getX(), p.getY(), elementSizeX, elementSizeY, frameSizeX, frameSizeY);
 	
 	// if there is not a collision, keep the rectangle moving
-	if(!collision(p.getX(), p.getY(), elementSizeX, elementSizeY, frameSizeX, frameSizeY)){
+	if(collisionId ==  -1){
 	    // Use the point class to store the position of the element
-	    p.translate(dx, dy);
-	    System.out.println("Setting the new location!");
-	    element.setLocation((int)p.getX(), (int)p.getY());
-	    System.out.println("The new positions x: " + p.getX() + "and y: " + p.getY() );
+	    // p.translate(dx, dy);
+	    // System.out.println("Setting the new location!");
+	    // element.setLocation((int)p.getX(), (int)p.getY());
+	    // System.out.println("The new positions x: " + p.getX() + "and y: " + p.getY() );
+	    // do nothing really
 
 	    // Now sleep for 30 milliseconds
-	    Thread.sleep(30);
 	    
-	} else {
-	    System.out.println("A collision was detected");
-	    // Therefore, now set a new direction, in which to move
-	    // dx = random.nextInt(20)-10;
-	    // dy = random.nextInt(20)-10;
-	    // p.translate(dx, dy);
+	    
+	} else if(collisionId == 1){
+	    // Take care of the vertical collisions
+	    System.out.println("A vertical collision was detected");
+	    System.out.println("dx is: " + dx);
 	    dx = -dx;
+	    System.out.println("Now dx is: " + dx);
+	    
+	    
+	} else if (collisionId == 2){
+	    // The horisontal collision
+	    System.out.println("A horisontal collision was detected");
 	    dy = -dy;
-	    p.translate(dx, dy);
-	    element.setLocation((int)p.getX(), (int)p.getY());
+	    
 	}
+	    
+	p.translate(dx, dy);
+	element.setLocation( (int)p.getX(), (int)p.getY());
+	Thread.sleep(30);
 	
+	System.out.println("And lastly: " + dx);
 	System.out.println("Iterating...");
 	bounce(element, frame, elementSize, dx, dy);
 	
